@@ -15,7 +15,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://mern-auth-tajwar.vercel.app/",
     credentials: true,
   })
 );
