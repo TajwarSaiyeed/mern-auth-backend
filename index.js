@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/user.routes");
 const { notFound, errorHandler } = require("./middleware/error.middleware");
+const cors = require("cors");
 
 // Load environment variables
 dotenv.config();
@@ -12,6 +13,12 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 // Middleware
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
