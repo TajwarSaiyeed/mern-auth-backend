@@ -5,14 +5,13 @@ const generateToken = (res, userId, email) => {
     expiresIn: "30d",
   });
 
-  const secureCookie = process.env.NODE_ENV === "production";
-  const sameSiteCookie = secureCookie ? "none" : "strict";
+  console.log("hit");
 
   // save token in cookie
   res.cookie("token", token, {
     httpOnly: true,
-    secure: secureCookie,
-    sameSite: sameSiteCookie,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 };
