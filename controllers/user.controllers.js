@@ -67,11 +67,14 @@ const registerUser = asyncHandler(async (req, res) => {
  * @access  Public
  */
 
+const secureCookie = process.env.NODE_ENV === "production";
+const sameSiteCookie = secureCookie ? "none" : "strict";
+
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie("token", "", {
     httpOnly: true,
-    secure: true,
-    sameSite: "strict",
+    secure: secureCookie,
+    sameSite: sameSiteCookie,
     expires: new Date(0),
   });
 
