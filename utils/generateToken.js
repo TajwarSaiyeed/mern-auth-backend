@@ -5,13 +5,15 @@ const generateToken = (res, userId, email) => {
     expiresIn: "30d",
   });
 
+  const secureCookie = process.env.NODE_ENV === "production";
+  const sameSiteCookie = secureCookie ? "none" : "strict";
+
   // save token in cookie
   res.cookie("token", token, {
     httpOnly: true,
-    secure: true,
-    sameSite: "strict",
+    secure: secureCookie,
+    sameSite: sameSiteCookie,
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-    domain: "mern-auth-tajwar.vercel.app",
   });
 };
 
